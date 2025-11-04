@@ -13,17 +13,17 @@ public class Gif {
     private Long id;
     private final String gifName; // gif 이름
     private String storedFilename;
-    private final String uploaderName; // 사용자 이름
-    private final String uploaderPasswordHash; // 비번 암호화한 해시 형태로 저장
+    private final String userName; // 사용자 이름
+    private final String userPasswordHash; // 비번 암호화한 해시 형태로 저장
     private final String gifTags; // gif 태그들(구분자 쉼표)
     private Instant uploadTime;
     private Long fileSize;
 
-    public Gif(String gifName, String uploaderName,
-               String uploaderPasswordHash, String gifTags) {
+    public Gif(String gifName, String userName,
+               String userPasswordHash, String gifTags) {
         this.gifName = gifName;
-        this.uploaderName = uploaderName;
-        this.uploaderPasswordHash = uploaderPasswordHash;
+        this.userName = userName;
+        this.userPasswordHash = userPasswordHash;
         this.gifTags = gifTags;
     }
 
