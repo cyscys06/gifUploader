@@ -4,6 +4,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import java.time.Instant;
+import java.util.List;
 
 @Entity
 public class Gif {
@@ -15,7 +16,7 @@ public class Gif {
     private String storedFilename;
     private final String userName; // 사용자 이름
     private final String userPasswordHash; // 비번 암호화한 해시 형태로 저장
-    private final String gifTags; // gif 태그들(구분자 쉼표)
+    private final List<String> gifTags; // gif 태그들(구분자 쉼표)
     private Instant uploadTime;
     private Long fileSize;
 
@@ -25,7 +26,6 @@ public class Gif {
         this.gifName = gifName;
         this.userName = userName;
         this.userPasswordHash = userPasswordHash;
-        this.gifTags = gifTags;
     }
 
     private void validate_emptyString(String input) {
