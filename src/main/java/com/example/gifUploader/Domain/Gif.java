@@ -26,4 +26,10 @@ public class Gif {
         this.passwordHash = passwordHash;
         this.tags = tags;
     }
+
+    private void validate_emptyString(String input) {
+        if (input.isEmpty()) {
+            throw new IllegalArgumentException("빈 문자열을 입력할 수 없습니다.");
+        }
+    }
 }
