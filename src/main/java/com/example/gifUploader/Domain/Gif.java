@@ -4,6 +4,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import java.time.Instant;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @Entity
@@ -26,6 +28,7 @@ public class Gif {
         this.gifName = gifName;
         this.userName = userName;
         this.userPasswordHash = userPasswordHash;
+        this.gifTags = makegifTagsList(gifTags);
     }
 
     private void validate_emptyString(String input) {
@@ -40,5 +43,10 @@ public class Gif {
         validate_emptyString(gifTags);
         validate_emptyString(userName);
         validate_emptyString(userPasswordHash);
+    }
+
+    private List<String> makegifTagsList(String gifTags) {
+        String term = gifTags.trim();
+        return new ArrayList<>(Arrays.asList(term.split(",")));
     }
 }
