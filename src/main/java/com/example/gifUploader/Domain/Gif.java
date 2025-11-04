@@ -29,8 +29,8 @@ public class Gif {
     private Instant uploadTime;
     private Long fileSize;
 
-    public Gif(String gifName, String userName,
-               String userPasswordHash, String gifTags) {
+    public Gif(String gifName, String gifTags,
+               String userName, String userPasswordHash) {
         validate_allInput(gifName, gifTags, userName, userPasswordHash);
         this.gifName = gifName;
         this.userName = userName;
