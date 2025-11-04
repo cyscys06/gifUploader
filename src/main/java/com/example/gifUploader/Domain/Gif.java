@@ -11,20 +11,20 @@ public class Gif {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     // 데이터를 DB에 저장할 때 id가 1씩 자동으로 증가하여 저장된다(맨처음 저장되는 gif는 0부터 시작)
     private Long id;
-    private final String originalName; // gif 이름
+    private final String gifName; // gif 이름
     private String storedFilename;
     private final String uploaderName; // 사용자 이름
-    private final String passwordHash; // 비번 암호화한 해시 형태로 저장
-    private final String tags; // gif 태그들(구분자 쉼표)
+    private final String uploaderPasswordHash; // 비번 암호화한 해시 형태로 저장
+    private final String gifTags; // gif 태그들(구분자 쉼표)
     private Instant uploadTime;
-    private Long size;
+    private Long fileSize;
 
-    public Gif(String originalName, String uploaderName,
-               String passwordHash, String tags) {
-        this.originalName = originalName;
+    public Gif(String gifName, String uploaderName,
+               String uploaderPasswordHash, String gifTags) {
+        this.gifName = gifName;
         this.uploaderName = uploaderName;
-        this.passwordHash = passwordHash;
-        this.tags = tags;
+        this.uploaderPasswordHash = uploaderPasswordHash;
+        this.gifTags = gifTags;
     }
 
     private void validate_emptyString(String input) {
