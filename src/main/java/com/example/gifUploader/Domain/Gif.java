@@ -11,6 +11,7 @@ import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 
 @Entity
 @Getter
@@ -54,5 +55,9 @@ public class Gif {
     private List<String> makegifTagsList(String gifTags) {
         String term = gifTags.trim();
         return new ArrayList<>(Arrays.asList(term.split(",")));
+    }
+
+    public boolean comparePassword(String password) {
+        return Objects.equals(this.userPasswordHash, password);
     }
 }
