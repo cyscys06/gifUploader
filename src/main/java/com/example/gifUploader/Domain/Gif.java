@@ -3,6 +3,8 @@ package com.example.gifUploader.Domain;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
+import org.springframework.data.annotation.Id;
+
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -10,7 +12,7 @@ import java.util.List;
 
 @Entity
 public class Gif {
-    @id // 이 필드 변수가 db 내부에서 고유한 값을 가진 id로 사용함을 의미하는 어노테이션
+    @Id // 이 필드 변수가 db 내부에서 고유한 값을 가진 id로 사용함을 의미하는 어노테이션
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     // 데이터를 DB에 저장할 때 id가 1씩 자동으로 증가하여 저장된다(맨처음 저장되는 gif는 0부터 시작)
     private Long id;
