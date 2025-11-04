@@ -21,6 +21,7 @@ public class Gif {
 
     public Gif(String gifName, String userName,
                String userPasswordHash, String gifTags) {
+        validate_allInput(gifName, gifTags, userName, userPasswordHash);
         this.gifName = gifName;
         this.userName = userName;
         this.userPasswordHash = userPasswordHash;
@@ -31,5 +32,13 @@ public class Gif {
         if (input.isEmpty()) {
             throw new IllegalArgumentException("빈 문자열을 입력할 수 없습니다.");
         }
+    }
+
+    private void validate_allInput(String gifName, String gifTags,
+                                   String userName, String userPasswordHash) {
+        validate_emptyString(gifName);
+        validate_emptyString(gifTags);
+        validate_emptyString(userName);
+        validate_emptyString(userPasswordHash);
     }
 }
