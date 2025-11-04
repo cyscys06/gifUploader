@@ -53,7 +53,7 @@ public class Gif {
     }
 
     private List<String> makegifTagsList(String gifTags) {
-        String term = gifTags.trim();
+        String term = gifTags.replaceAll(" ", "");
         return new ArrayList<>(Arrays.asList(term.split(",")));
     }
 
