@@ -3,6 +3,8 @@ package com.example.gifUploader.Domain;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
+import lombok.AccessLevel;
+import lombok.Getter;
 import org.springframework.data.annotation.Id;
 
 import java.time.Instant;
@@ -11,6 +13,7 @@ import java.util.Arrays;
 import java.util.List;
 
 @Entity
+@Getter
 public class Gif {
     @Id // 이 필드 변수가 db 내부에서 고유한 값을 가진 id로 사용함을 의미하는 어노테이션
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -19,6 +22,7 @@ public class Gif {
     private final String gifName; // gif 이름
     private String storedFilename;
     private final String userName; // 사용자 이름
+    @Getter(AccessLevel.NONE)
     private final String userPasswordHash; // 비번 암호화한 해시 형태로 저장
     private final List<String> gifTags; // gif 태그들(구분자 쉼표)
     private Instant uploadTime;
