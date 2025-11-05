@@ -36,6 +36,9 @@ public class Gif {
         this.gifTags = makegifTagsList(gifTags);
     }
 
+    // JPA 전용 protected 디폴트 생성자
+    protected Gif() {}
+
     private void validate_emptyString(String input) {
         if (input.isEmpty()) {
             throw new IllegalArgumentException("빈 문자열을 입력할 수 없습니다.");
