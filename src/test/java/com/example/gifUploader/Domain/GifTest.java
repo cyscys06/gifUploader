@@ -1,8 +1,9 @@
-package com.example.gifUploader.Domain;
+package com.example.gifUploader.domain;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import static org.assertj.core.api.Assertions.*;
+import com.example.gifUploader.domain.Gif;
 
 @DisplayName("Gif 객체 생성 테스트")
 public class GifTest {

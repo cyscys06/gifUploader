@@ -1,4 +1,4 @@
-package com.example.gifUploader.Domain;
+package com.example.gifUploader.domain;
 
 import jakarta.persistence.*;
 import lombok.AccessLevel;
