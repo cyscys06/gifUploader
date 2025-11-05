@@ -5,7 +5,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import lombok.AccessLevel;
 import lombok.Getter;
-import org.springframework.data.annotation.Id;
+import jakarta.persistence.Id;
 
 import java.time.Instant;
 import java.util.ArrayList;
