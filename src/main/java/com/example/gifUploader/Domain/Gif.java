@@ -1,11 +1,8 @@
 package com.example.gifUploader.Domain;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
+import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
-import jakarta.persistence.Id;
 
 import java.time.Instant;
 import java.util.ArrayList;
@@ -25,6 +22,7 @@ public class Gif {
     private final String userName; // 사용자 이름
     @Getter(AccessLevel.NONE)
     private final String userPasswordHash; // 비번 암호화한 해시 형태로 저장
+    @ElementCollection
     private final List<String> gifTags; // gif 태그들(구분자 쉼표)
     private Instant uploadTime;
     private Long fileSize;
