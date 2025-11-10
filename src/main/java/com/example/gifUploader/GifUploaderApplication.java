@@ -7,7 +7,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class GifUploaderApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(GifUploaderApplication.class, args);
+        SpringApplication.run(GifUploaderApplication.class, args);
 	}
 
 }
