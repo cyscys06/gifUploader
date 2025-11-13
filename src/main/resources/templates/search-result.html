@@ -1,69 +1,121 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <title>Search Result</title>
-</head>
-<body>
+<html xmlns:th="http://www.thymeleaf.org" lang="ko">
+    <head>
+        <meta charset="UTF-8">
+        <title>Search Result</title>
+    </head>
+    <body>
+    
     <h1>검색 결과</h1>
-
+    
     <!-- 결과가 있을 때 -->
     <ul th:if="${results != null and !#lists.isEmpty(results)}">
         <li th:each="gif : ${results}">
+    
+            <!-- GIF 이름 -->
             <strong th:text="${gif.gifName}"></strong><br>
-            <img th:src="@{'/files/' + ${gif.storedName}}" width="250"><br>
-
+    
+            <!-- 이미지 -->
+            <img th:src="@{'/files/' + ${gif.storedName}}" width="250" alt="파일 이미지"><br><br>
+    
+            <!-- 태그 목록 -->
+            <div>
+                <b>태그:</b>
+                <span th:each="tag : ${gif.tagList}">
+                    <a th:href="@{|/search-result?q=${tag}|}" th:text="${tag}"></a>&nbsp;
+                </span>
+            </div>
+    
+            <!-- 사용자 이름 -->
+            <div>
+                <b>작성자:</b> <span th:text="${gif.userName}"></span>
+            </div><br>
+    
             <!-- 링크 복사 버튼 -->
             <button type="button"
-                    onclick="copyLink('/files/[[${gif.storedName}]]')">링크 복사</button>
-
+                    th:onclick="|copyLink('/files/${gif.storedName}')|">
+                링크 복사
+            </button>
+    
             <!-- 다운로드 버튼 -->
             <a th:href="@{'/download/' + ${gif.storedName}}">
                 <button type="button">다운로드</button>
             </a>
-
-            <!-- 기존 태그 / 사용자 표시 / 삭제 버튼 등 계속 -->
-            <br><br>
+    
+            <!-- 삭제 버튼 -->
+            <button type="button"
+                    th:onclick="|deleteGif('${gif.id}', '${keyword}')|">
+                삭제
+            </button>
+    
+            <hr>
         </li>
     </ul>
-
-    <p th:if="${results == null or #lists.isEmpty(results)}" style="color:gray; font-size:18px;">
+    
+    <!-- 결과 없음 -->
+    <p th:if="${results == null or #lists.isEmpty(results)}"
+       style="color:gray; font-size:18px;">
         검색 결과가 없습니다.
     </p>
-
+    
+    <!-- 페이지네이션 -->
     <div th:if="${totalPages > 1}">
         <div>
             <a th:if="${currentPage > 0}"
                th:href="@{|/search-result?q=${keyword}&page=${currentPage - 1}|}">
                 이전
             </a>
-
+    
             <span th:text="${currentPage + 1}"></span> /
             <span th:text="${totalPages}"></span>
-
+    
             <a th:if="${currentPage < totalPages - 1}"
                th:href="@{|/search-result?q=${keyword}&page=${currentPage + 1}|}">
                 다음
             </a>
         </div>
     </div>
-
-
+    
+    <br>
     <a href="/search-page">검색 화면으로 돌아가기</a>
 
+<!-- Flash 메시지 -->
     <script th:inline="javascript">
-        if ([[${msg != null}]]){
+        if ([[${msg != null}]]) {
             alert([[${msg}]]);
         }
     </script>
 
+<!-- JS 함수 영역 -->
     <script>
+        /* 링크 복사 */
         function copyLink(path) {
             const fullUrl = window.location.origin + path;
-            navigator.clipboard.writeText(fullUrl).then(() => {
-                alert("링크가 복사되었습니다:\n");
-            });
+            navigator.clipboard.writeText(fullUrl)
+                .then(() => alert("링크가 복사되었습니다:\n" + fullUrl))
+                .catch(() => alert("복사 실패"));
+        }
+    
+        /* 삭제 */
+        function deleteGif(id, keyword) {
+            const password = prompt("비밀번호를 입력하세요:");
+    
+            if (!password) return;
+    
+            const form = document.createElement("form");
+            form.method = "POST";
+            form.action = "/delete";
+    
+            form.innerHTML = `
+                <input type="hidden" name="id" value="${id}">
+                <input type="hidden" name="password" value="${password}">
+                <input type="hidden" name="q" value="${keyword}">
+            `;
+    
+            document.body.appendChild(form);
+            form.submit();
         }
     </script>
+
 </body>
 </html>
