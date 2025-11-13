@@ -1,17 +1,17 @@
 package com.example.gifUploader.domain;
 
 import jakarta.persistence.*;
-import lombok.AccessLevel;
 import lombok.Getter;
 
 import java.time.LocalDateTime;
+import java.util.Arrays;
+import java.util.List;
 
 @Entity
 @Getter
 public class Gif {
-    @Id // 이 필드 변수가 db 내부에서 고유한 값을 가진 id로 사용함을 의미하는 어노테이션
+    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    // 데이터를 DB에 저장할 때 id가 1씩 자동으로 증가하여 저장된다(맨처음 저장되는 gif는 0부터 시작)
     private Long id;
 
     @Column(nullable = false)
@@ -23,7 +23,6 @@ public class Gif {
     @Column(nullable = false)
     private String userName; // 사용자 이름
 
-    @Getter(AccessLevel.NONE)
     @Column(nullable = false)
     private String userPasswordHash; // 비번 암호화한 해시 형태로 저장
 
@@ -35,20 +34,20 @@ public class Gif {
     @Column(nullable = false)
     private Long fileSize; // 파일 크기
 
-    public Gif(String gifName, String gifTags,
-               String userName, String userPasswordHash,
-               String storedName, long fileSize) {
+    protected Gif() {}
+
+    public Gif(String gifName, String storedName,
+               String gifTags, String userName,
+               String userPasswordHash, long fileSize) {
         validate_allInput(gifName, gifTags, userName, userPasswordHash);
+
         this.gifName = gifName;
+        this.storedName = storedName;
+        this.gifTags = gifTags;
         this.userName = userName;
         this.userPasswordHash = userPasswordHash;
-        this.gifTags = gifTags;
-        this.storedName = storedName;
         this.fileSize = fileSize;
     }
-
-    // JPA 전용 protected 디폴트 생성자
-    protected Gif() {}
 
     private void validate_emptyString(String input) {
         if (input.isEmpty()) {
@@ -64,6 +63,13 @@ public class Gif {
         validate_emptyString(userPasswordHash);
     }
 
-
+    public List<String> getTagList() {
+        if (gifTags == null || gifTags.isEmpty()) {
+            return List.of();
+        }
+        return Arrays.stream(gifTags.split(","))
+                .map(String::trim)
+                .toList();
+    }
 
 }

@@ -7,6 +7,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import java.nio.file.Path;
 
+// 이 클래스를 설정 파일로 지정
 @Configuration
 public class StaticResourceConfig implements WebMvcConfigurer {
     @Value("${app.upload.root}")
@@ -16,6 +17,6 @@ public class StaticResourceConfig implements WebMvcConfigurer {
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         Path root = Path.of(uploadRoot).toAbsolutePath().normalize();
         registry.addResourceHandler("/files/**")
-                .addResourceLocations(root.toUri().toString());
+                .addResourceLocations("file:" + root.toString() + "/");
     }
 }

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>GIF Search</title>
+</head>
+<body>
+<a href="/upload-page">GIF 업로드</a>
+
+<hr>
+
+<h1>GIF Search</h1>
+
+<form action="/search-result" method="get">
+    <label>
+        <input type="text" name="q" placeholder="Search GIF name or tags">
+    </label>
+    <button type="submit">Search</button>
+</form>
+
+</body>
+</html>

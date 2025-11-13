@@ -1,0 +1,3 @@
+app:
+  upload:
+    root: /home/ec2-user/uploads
